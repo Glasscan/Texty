@@ -1,0 +1,7 @@
+meta.txt
+__pycache__
+*.json
+.vscode
+.pytest_cache
+.venv
+*.png
