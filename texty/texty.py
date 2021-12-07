@@ -1,7 +1,7 @@
 """Module for a 'Texty' client."""
 
-import linguist as Lang
-import reader as Reader
+import texty.linguist as Lang
+import texty.reader as Reader
 import os.path
 from time import sleep
 

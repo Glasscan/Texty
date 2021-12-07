@@ -34,11 +34,13 @@ class Linguist:
     """A class to handle languages.
 
     Attributes:
+        _languageList (dict): A dictionary containing a list of languages.
         _languageRead (String): Pytesseract code for the language it will read.
         _translateFrom (String): IETF code for the language that Google
             Translate will translate from.
         _translateTo (String): IETF code for the language that Google
             Translate will translate into.
+        _translator (GoogleTranslate.Client)
     """
 
     def __init__(self) -> None:
@@ -48,9 +50,10 @@ class Linguist:
         selected on construction.
         """
 
-        self._languageRead = "eng"
-        self._translateFrom = "en"
-        self._translateTo = "en"
+        self._languageList = self._getLanguageList()
+        self._languageRead = self._languageList["English"]["Tesseract"]
+        self._translateFrom = self._languageList["English"]["ISO"]
+        self._translateTo = self._languageList["English"]["ISO"]
         self._translator = GoogleTranslate.Client()
 
         self.chooseLanguageRead()  # replace with GUI
@@ -143,3 +146,27 @@ class Linguist:
                 target_language=self._translateTo)
         print(translation, end="\n***\n")
         return
+
+    def _getLanguageList(self) -> dict:
+        """Method for retrieving a list of languages from languages.csv.
+
+        Creates a dictionary with a key for the language and a nested
+        dictionary for the language codes.
+
+        Returns:
+            A dictionary of the form
+                {'language':{Tesseract: 'code', ISO: 'code'}}
+        """
+        f = open("assets/languages.csv", "r")
+        languageList = dict()
+        for line in f:
+            line = line.replace('"', "")
+            line = line.replace('\n', "")
+            lang = (line.split(sep=", "))
+            entry = dict.fromkeys(("Tesseract", "ISO"))
+            entry.update({"Tesseract": lang[1]})
+            entry.update({"ISO": lang[2]})
+            languageList.update({lang[0]: entry})
+
+        f.close()
+        return languageList

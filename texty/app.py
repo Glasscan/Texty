@@ -1,6 +1,6 @@
 """Module that runs Texty."""
 
-import texty
+import texty.texty as texty
 
 
 def main():

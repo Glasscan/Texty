@@ -3,7 +3,7 @@
 from pytesseract import image_to_string
 
 
-def readImage(image="Screenshot_1", languageRead="eng") -> None:
+def readImage(image="Screenshot_1", languageRead="eng") -> str:
     """Method for reading images and discerning text
 
     Tesseract will attempt to read the image as characters in the input

@@ -1,7 +1,8 @@
 """Run the application with 'texty' as the module.
+    !/usr/projects/Texty
 """
 
-import app
+import texty.app as app
 from os import environ, getenv
 
 if __name__ == "__main__":
